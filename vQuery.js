@@ -12,7 +12,8 @@
         return this;
     }
     vQuery.prototype.on = function( events, fn ){ 
-        var arr = events.split(' ');
+        var regS = /\s+/g;
+        var arr = events.split(regS);
         var that = this
         for( var i = 0;i < this.elements.length;i++){
             for( var j = 0 ;j < arr.length;j++){
@@ -23,7 +24,6 @@
     }
     vQuery.prototype.tap = function( fn ){
         var el = this.elements[0];
-        var isMove = false;
         var startPoint = { }
         el.addEventListener('touchstart', function (e) {
             var ev = e.changedTouches[0];
@@ -31,9 +31,6 @@
                 x : ev.pageX,
                 y : ev.pageY
             };
-        });
-        el.addEventListener('touchmove', function (e) {
-            isMove = true;
         });
         el.addEventListener('touchend', function (e) {
             var ev = e.changedTouches[0];
@@ -44,7 +41,6 @@
             if( !isMove && Math.abs( nowPoint.x - startPoint.x ) < 5 && Math.abs( nowPoint.y - startPoint.y ) < 5 ){
                 fn && fn.call( el, e )
             }
-            isMove = false;
         });
     }
     vQuery.prototype.swiper = function(){
@@ -287,8 +283,7 @@
                     } 
                 } catch ( e ) {
                     reject( e )
-                }
-               
+                }   
             }    
         })
     }
@@ -333,8 +328,7 @@
                      this.elements = this.elements.concat( el )
                  }else{ 
                      this.elements.push( el )
-                 }
-                 
+                 }      
             break
         }
     }

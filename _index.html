@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+	margin: 0;
+}	
+ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+img {
+	vertical-align: top;
+}
+.wrap {
+	position: relative;
+	overflow: hidden;
+}
+.list {
+	overflow: hidden;
+}
+.list li {
+	float: left;
+}
+.list img {
+	width: 100%;
+}
+.nav {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 10px;
+	text-align: center;
+	height: 10px;
+}
+.nav a {
+	vertical-align: top;
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border-radius: 5px;
+	background: #fff;
+    transition: backgroundColor 2s;
+}
+a.focus{
+    background-color: red;
+}
+.page{
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}
+html,body{
+    height: 100%;
+}
+.lists li {
+    font: 16px/34px "宋体";
+    border-bottom: 1px solid #000;
+}
+.header{
+    display: none;
+}
+.header.show{
+    display: block;
+}
+    </style>
+
+</head>
+<body>
+    <div class="page">
+        <div class="scroll">
+                <header class="header ">加载中。。。</header>
+                <div class="wrap">
+                        <ul class="list">
+                            <li>
+                                <a href="#">
+                                    <img src="img/1.jpg">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="img/2.jpg">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <img src="img/3.jpg">
+                                </a>
+                            </li>
+                        </ul>
+                        <nav class="nav">
+                            <a href="javascript:;" class='focus'></a>
+                            <a href="javascript:;"></a>
+                            <a href="javascript:;"></a>
+                        </nav>
+                </div>
+                <ul class="lists"></ul>
+                <footer class="footer">正在加载更多数据……</footer>
+        </div>
+    </div>
+    <script src='./tween.js'></script>
+    <script type="text/javascript" src="./utils.js"></script>
+    
+</body>
+</html>
+<script>
+    var list = document.querySelector('.list');
+    var scroll = document.querySelector('.scroll');
+    css(scroll,'translateX',0)
+    css(scroll,'translateY',0)
+    css(scroll,'translateZ',0)
+    var lists = document.querySelector('.lists');
+    var page = document.querySelector('.page');
+    var header = document.querySelector('.header');
+    (function(window, document) {
+        
+        var str = '';
+        for (var i =0;i<100;i++){
+            str += "<li>" + i + "</li>"
+        }
+        lists.innerHTML = str;
+        var silder = new Silder({
+            el:list,
+        });
+    })(window, document);
+    var begin = 100 ;
+    var number = 40;
+    var size = 1; 
+    
+    function create(){
+        var start = begin + ( size - 1 )*number
+        var li = "";
+        for( var i = start ;i < begin + number*size; i ++ ){
+            li += "<li>"  + i + "</li>"
+        }
+        
+        lists.innerHTML += li;
+        size++;
+    }
+    (function(window, document) {
+        
+        var options = {
+            el:scroll,
+            axis:'y',
+            backOut:'out',
+            hasBar:true,
+            start:function(){
+               
+            },
+            move:function(){
+                var now = css(scroll,'translateY');
+              
+                if(now > 0 ){
+                    header.className = 'header show'
+                }	
+            },
+            end:function(){
+            
+            },
+            over:function(){
+               setTimeout(() => {
+                header.className = 'header'
+               }, 2000);
+                var now = css(scroll,'translateY');
+                var min = page.clientHeight - lists.offsetHeight;
+                if(now <= (min - 100)){
+                    clearTimeout( this.timer )
+                    this.timer = setTimeout(function(){
+                        create();
+                    },500);
+                    
+                }	
+            },
+        }
+    var swiper = new Swiper(  options )
+   console.log(swiper);
+    })(window, document);
+</script>
