@@ -1,0 +1,68 @@
+.fl{
+    float:left;
+}
+.fr{
+    float:right;
+}
+.clear:after{
+    clear: both;
+    content:'';
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+.por{
+    position: relative;
+}
+.poa{
+    position: absolute;
+}
+.pof{
+    position: fixed;
+}
+.margin-center{
+    margin:0 auto;
+}
+.po-center{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate( -50%,-50%);
+    -ms-transform: translate( -50%,-50%);
+}
+.flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.hidden{
+    visibility: hidden;
+}
+.visib{
+    visibility: visible;
+}
+.none{
+    display: none;
+}
+.block{
+    display: block;
+}
+.inline{
+    display: inline;
+}
+.inline-block{
+    display: inline-block; 
+}
+.flex{
+    display: flex;
+}
+/* 单行超出省略 */
+.eli{
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+.ver{
+    vertical-align: center;
+    display: inline-block;
+}
